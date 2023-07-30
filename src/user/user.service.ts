@@ -69,23 +69,9 @@ export class UserService {
     return this.userRepository.findOne(id)
   }
 
-  async updateUser(updateUserDto: UpdateUserDto, user: UserEntity): Promise<UserEntity> {
-    const preparedUser = user
-    if (updateUserDto?.email) {
-      preparedUser.email = updateUserDto.email
-    }
-    if (updateUserDto?.password) {
-      preparedUser.password = updateUserDto.password
-    }
-    if (updateUserDto?.username) {
-      preparedUser.username = updateUserDto.username
-    }
-    if (updateUserDto?.image) {
-      preparedUser.image = updateUserDto.image
-    }
-    if (updateUserDto?.bio) {
-      preparedUser.bio = updateUserDto.bio
-    }
-    return await this.userRepository.save(preparedUser)
+  async updateUser(updateUserDto: UpdateUserDto, userId: number): Promise<UserEntity> {
+    const user = await this.findById(userId)
+    Object.assign(user, updateUserDto)
+    return await this.userRepository.save(user)
   }
 }
