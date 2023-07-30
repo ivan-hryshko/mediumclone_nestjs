@@ -63,4 +63,8 @@ export class UserService {
       }
     }
   }
+
+  async findById(id: number): Promise<UserEntity> {
+    return this.userRepository.findOne(id)
+  }
 }
