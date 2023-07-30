@@ -9,7 +9,6 @@ import { UserService } from "../user.service";
 export class AuthMiddleWare implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
   async use(req: ExpressRequest, _: Response, next: NextFunction) {
-    console.log('authMiddleware', req.headers)
     if (!req.headers.authorization) {
       req.user = null
       next()
@@ -17,7 +16,6 @@ export class AuthMiddleWare implements NestMiddleware {
     }
 
     const token = req.headers.authorization.split(' ')[1]
-    console.log('token :>> ', token);
 
     try {
       const decode = verify(token, JWT_SECRET)
