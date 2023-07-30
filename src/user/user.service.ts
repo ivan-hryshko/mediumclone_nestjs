@@ -35,7 +35,7 @@ export class UserService {
   async loginUser(loginUserDto: LoginUserDto): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       email: loginUserDto.email
-    })
+    }, { select: ['id', 'email', 'bio', 'image', 'username', 'password']})
     if (!user) {
       throw new HttpException('Credential are not valid', HttpStatus.UNPROCESSABLE_ENTITY)
     }
@@ -43,6 +43,7 @@ export class UserService {
     if (!isPasswordCorrect) {
       throw new HttpException('Password is incorrect', HttpStatus.UNPROCESSABLE_ENTITY)
     }
+    delete user.password
     return user
   }
 
