@@ -38,4 +38,10 @@ export class ArticleService {
   private getSlug(title: string): string {
     return (slugify(title, { lower: true }) + '-' + this.generateRandomId())
   }
+
+  async findBySlug(slug: string): Promise<ArticleEntity> {
+    return await this.articleRepository.findOne({
+      slug,
+    })
+  }
 }
