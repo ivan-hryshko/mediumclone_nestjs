@@ -4,6 +4,7 @@ import { ArticleEntity } from "./article.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserEntity } from "@app/user/user.entity";
+import { ArticleResponseInterface } from "./types/articleResponse.interface";
 
 @Injectable()
 export class ArticleService {
@@ -21,5 +22,11 @@ export class ArticleService {
     article.author = currentUser
 
     return await this.articleRepository.save(article)
+  }
+
+  buildArticleResponse(article: ArticleEntity): ArticleResponseInterface {
+    return {
+      article
+    }
   }
 }
