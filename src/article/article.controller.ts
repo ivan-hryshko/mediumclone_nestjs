@@ -18,7 +18,7 @@ export class ArticleController {
     @User('id') currrentUserId: number,
     @Query() query: any,
   ): Promise<ArticlesResponseInterface> {
-    return await this.articleService.findAll(currrentUserId, query)
+    // return await this.articleService.findAll(currrentUserId, query)
   }
 
   @Post()
