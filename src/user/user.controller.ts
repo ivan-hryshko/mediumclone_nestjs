@@ -38,25 +38,27 @@ export class UserController {
   async login(
     @Body('user') loginDto: LoginUserDto,
   ): Promise<UserResponseInterface> {
-    const user = await this.userService.loginUser(loginDto);
+    console.log('loginDto', loginDto);
+    const user = await this.userService.login(loginDto);
     return this.userService.buildUserResponse(user);
   }
 
   @Get('user')
   @UseGuards(AuthGuard)
-  async currentUser(
-    @User() user: UserEntity,
-  ): Promise<UserResponseInterface> {
+  async currentUser(@User() user: UserEntity): Promise<UserResponseInterface> {
     return this.userService.buildUserResponse(user);
   }
 
   @Put('user')
   @UseGuards(AuthGuard)
-  async updateUser(
+  async updateCurrentUser(
     @User('id') currentUserId: number,
     @Body('user') updateUserDto: UpdateUserDto,
   ): Promise<UserResponseInterface> {
-    const user = await this.userService.updateUser(updateUserDto, currentUserId)
+    const user = await this.userService.updateUser(
+      currentUserId,
+      updateUserDto,
+    );
     return this.userService.buildUserResponse(user);
   }
 }

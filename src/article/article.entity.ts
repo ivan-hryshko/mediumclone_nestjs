@@ -1,41 +1,46 @@
-import { UserEntity } from "@app/user/user.entity";
-import { BeforeUpdate, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { UserEntity } from '@app/user/user.entity';
+import {
+  BeforeUpdate,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'articles' })
 export class ArticleEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column()
-  slug: string
+  slug: string;
 
   @Column()
-  title: string
+  title: string;
 
   @Column({ default: '' })
-  description: string
+  description: string;
 
   @Column({ default: '' })
-  body: string
+  body: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date
+  createdAt: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date
+  updatedAt: Date;
 
   @Column('simple-array')
-  tagList: string[]
+  tagList: string[];
 
   @Column({ default: 0 })
-  favoritesCount: number
+  favoritesCount: number;
 
   @BeforeUpdate()
   updateTimestamp() {
-    this.updatedAt = new Date()
+    this.updatedAt = new Date();
   }
 
   @ManyToOne(() => UserEntity, (user) => user.articles, { eager: true })
-  author: UserEntity
-
+  author: UserEntity;
 }

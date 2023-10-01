@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class AddRealationBeetwenArticleAndUser1691849640515 implements MigrationInterface {
-    name = 'AddRealationBeetwenArticleAndUser1691849640515'
+export class AddRelationsBetweenArticleAndUser1615928484764 implements MigrationInterface {
+    name = 'AddRelationsBetweenArticleAndUser1615928484764'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "articles" ADD "authorId" integer`);
